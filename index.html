@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Bomber Simulator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        /* Custom scrollbar for status output */
+        #status-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        #status-output::-webkit-scrollbar-track {
+            background: #e2e8f0; /* bg-gray-200 */
+            border-radius: 10px;
+        }
+        #status-output::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* bg-gray-400 */
+            border-radius: 10px;
+        }
+        #status-output::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* bg-gray-500 */
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl border border-gray-200">
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">📞 Call Bomber Tool</h1>
+            <p class="text-lg text-gray-600">High-Frequency Call Trigger Tool</p>
+            <p class="mt-4 text-gray-700 leading-relaxed">
+                <span class="font-semibold">Call Bomber</span> is a real-time tool designed to send a high volume of automated calls to a target number.
+                Built for educational, <span class="font-semibold">stress-testing, and prank (with consent) use cases</span>, it allows users to explore the mechanics behind call flooding and automated dialing systems.
+            </p>
+        </div>
+
+        <!-- Input Form Section -->
+        <div class="space-y-6 mb-8">
+            <div>
+                <label for="target-number" class="block text-sm font-medium text-gray-700 mb-1">Target Phone Number</label>
+                <input type="text" id="target-number" placeholder="e.g., +1234567890 or 9876543210"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                       aria-describedby="target-number-info">
+                <p id="target-number-info" class="mt-1 text-xs text-gray-500">Enter the target phone number.</p>
+            </div>
+
+            <div>
+                <label for="num-calls" class="block text-sm font-medium text-gray-700 mb-1">Number of Calls</label>
+                <input type="number" id="num-calls" value="10" min="1" step="1"
+                       class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                       aria-describedby="num-calls-info">
+                <p id="num-calls-info" class="mt-1 text-xs text-gray-500">How many calls to send.</p>
+            </div>
+
+            <div>
+                <label for="speed-slider" class="block text-sm font-medium text-gray-700 mb-1">Bombing Speed (1=Slow, 10=Fast)</label>
+                <input type="range" id="speed-slider" min="1" max="10" value="5" step="1"
+                       class="mt-1 w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg"
+                       aria-describedby="speed-slider-info">
+                <p id="speed-slider-info" class="mt-1 text-xs text-gray-500">Adjust the speed of calls. Current: <span id="speed-value">5</span></p>
+            </div>
+
+            <button id="bomb-button"
+                    class="w-full bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                💣 Bomb Now
+            </button>
+        </div>
+
+        <!-- Status Output Section -->
+        <div>
+            <label for="status-output" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <div id="status-output"
+                 class="w-full h-64 p-4 border border-gray-300 rounded-md bg-gray-50 overflow-y-auto text-sm text-gray-800 leading-relaxed font-mono"
+                 placeholder="Click 'Bomb Now' to start the tool...">
+                 Click 'Bomb Now' to start the tool...
+            </div>
+        </div>
+
+        <!-- Follow Us Section -->
+        <div class="mt-10 pt-6 border-t border-gray-200 text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Follow Us</h2>
+            <div class="flex justify-center gap-6 text-3xl">
+                <a href="https://www.facebook.com/profile.php?id=61576823879176&mibextid=rS40aB7S9Ucbxw6v" target="_blank" title="Facebook" class="text-blue-600 hover:text-blue-800 transition-colors duration-200">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/mohanty.satyaprakash.22/" target="_blank" title="Instagram" class="text-pink-600 hover:text-pink-800 transition-colors duration-200">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://mobile.x.com/SubashChan12922" target="_blank" title="Twitter/X" class="text-gray-800 hover:text-gray-900 transition-colors duration-200">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://pin.it/1ZWNQjRrb" target="_blank" title="Pinterest" class="text-red-700 hover:text-red-900 transition-colors duration-200">
+                    <i class="fab fa-pinterest"></i>
+                </a>
+                <a href="https://www.youtube.com/@SubashChandraMohanty-ml2lw" target="_blank" title="YouTube" class="text-red-500 hover:text-red-700 transition-colors duration-200">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const targetNumberInput = document.getElementById('target-number');
+        const numCallsInput = document.getElementById('num-calls');
+        const speedSlider = document.getElementById('speed-slider');
+        const speedValueSpan = document.getElementById('speed-value');
+        const bombButton = document.getElementById('bomb-button');
+        const statusOutput = document.getElementById('status-output');
+
+        // Update speed value display when slider moves
+        speedSlider.addEventListener('input', () => {
+            speedValueSpan.textContent = speedSlider.value;
+        });
+
+        // Function to append messages to the status output
+        function appendStatusMessage(message) {
+            const p = document.createElement('p');
+            // Basic markdown-like formatting for bold text
+            p.innerHTML = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            statusOutput.appendChild(p);
+            // Scroll to the bottom to show the latest message
+            statusOutput.scrollTop = statusOutput.scrollHeight;
+        }
+
+        // Event listener for the "Bomb Now" button
+        bombButton.addEventListener('click', async () => {
+            // Clear previous status messages
+            statusOutput.innerHTML = '';
+            appendStatusMessage("Starting simulation...");
+
+            // Get input values
+            const targetNumber = targetNumberInput.value.trim();
+            const numCalls = parseInt(numCallsInput.value, 10);
+            const speed = parseInt(speedSlider.value, 10);
+
+            // Client-side validation
+            if (!targetNumber) {
+                appendStatusMessage("Error: Please enter a target number.");
+                return;
+            }
+            // Regex for phone number validation (basic, allows + and 1-14 digits)
+            const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+            if (!phoneRegex.test(targetNumber)) {
+                appendStatusMessage("Error: Invalid target number format. Please use a valid phone number (e.g., +1234567890 or 1234567890).");
+                return;
+            }
+            if (isNaN(numCalls) || numCalls <= 0) {
+                appendStatusMessage("Error: Number of calls must be at least 1.");
+                return;
+            }
+            if (isNaN(speed) || speed < 1 || speed > 10) {
+                appendStatusMessage("Error: Speed must be between 1 and 10.");
+                return;
+            }
+
+            // Disable button during simulation
+            bombButton.disabled = true;
+            bombButton.textContent = 'Simulating... Please wait.';
+            bombButton.classList.remove('from-red-500', 'to-red-700', 'hover:from-red-600', 'hover:to-red-800');
+            bombButton.classList.add('from-gray-400', 'to-gray-600', 'cursor-not-allowed');
+
+
+            try {
+                // IMPORTANT: Replace this with your actual Hugging Face Space URL for the backend
+                // It will look something like: https://<your-username>-<your-space-name>.hf.space
+                const backendBaseUrl = 'https://satyaprakashmohanty13-call-bomber-backend.hf.space'; // e.g., 'https://your-username-your-space-name.hf.space'
+                const backendUrl = `${backendBaseUrl}/bomb_calls`;
+
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        target_number: targetNumber,
+                        num_calls: numCalls,
+                        speed: speed
+                    }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+                }
+
+                // Read the stream using a ReadableStreamDefaultReader
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) {
+                        break; // Stream finished
+                    }
+
+                    buffer += decoder.decode(value, { stream: true });
+
+                    // Process messages from the buffer
+                    // SSE messages are separated by '\n\n'
+                    let messages = buffer.split('\n\n');
+                    buffer = messages.pop(); // Keep the last incomplete message in buffer
+
+                    for (const message of messages) {
+                        if (message.startsWith('data: ')) {
+                            const data = message.substring(6); // Remove 'data: ' prefix
+                            appendStatusMessage(data);
+                        } else if (message.startsWith('event: complete')) {
+                            // Handle the completion event if needed
+                            console.log("Simulation completed event received.");
+                        }
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error during simulation:', error);
+                appendStatusMessage(`Error: ${error.message}`);
+            } finally {
+                // Re-enable button after simulation or error
+                bombButton.disabled = false;
+                bombButton.textContent = '💣 Bomb Now';
+                bombButton.classList.remove('from-gray-400', 'to-gray-600', 'cursor-not-allowed');
+                bombButton.classList.add('from-red-500', 'to-red-700', 'hover:from-red-600', 'hover:to-red-800');
+            }
+        });
+    </script>
+</body>
+</html>
+
